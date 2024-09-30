@@ -2,7 +2,11 @@ package p01;
 
 //Java program for implementation of Heap Sort
 public class HeapSort {
-	static int comparisons;
+	int comparisons = 0;
+	
+	public int getComparisons() {
+		return comparisons;
+	}
 	
 	public void sort(int arr[])
 	{
@@ -78,6 +82,7 @@ public class HeapSort {
 	public static void main(String args[])
 	{
 		int arr[] = { 12, 11, 13, 5, 6, 7 };
+		int secondArr[] = { 11, 11, 13, 5, 6, 4 };
 
 		HeapSort ob = new HeapSort();
 		System.out.println("Unsorted Array: ");
@@ -86,6 +91,19 @@ public class HeapSort {
 
 		System.out.println("Sorted array is");
 		printArray(arr);
-		System.out.println("Number of Comparisons: " + comparisons);
+		System.out.println("Number of Comparisons: " + ob.getComparisons());
+		
+		HeapSort ob2 = new HeapSort();
+		
+		System.out.println("Unsorted Array: ");
+		printArray(secondArr);
+		ob2.sort(secondArr);
+
+		System.out.println("Sorted array is");
+		printArray(secondArr);
+		System.out.println("Number of Comparisons: " + ob2.getComparisons());
+		
+		
+		
 	}
 }
