@@ -1,0 +1,48 @@
+package p01;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class PermutationGenerator {
+
+    public static List<List<Integer>> generatePermutations(int[] arr) {
+        List<List<Integer>> permutations = new ArrayList<>();
+        permute(arr, 0, permutations);
+        return permutations;
+    }
+
+    private static void permute(int[] arr, int start, List<List<Integer>> permutations) {
+        if (start == arr.length - 1) {
+            List<Integer> permutation = new ArrayList<>();
+            for (int num : arr) {
+                permutation.add(num);
+            }
+            permutations.add(permutation);
+        } else {
+            for (int i = start; i < arr.length; i++) {
+                swap(arr, start, i);
+                permute(arr, start + 1, permutations);
+                swap(arr, start, i); // Backtrack
+            }
+        }
+    }
+
+    private static void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    public static void main(String[] args) {
+        int n = 3;
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = i;
+        }
+
+        List<List<Integer>> allPermutations = generatePermutations(arr);
+        for (List<Integer> perm : allPermutations) {
+            System.out.println(perm);
+        }
+    }
+}
