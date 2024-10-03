@@ -1,0 +1,74 @@
+package p01;
+
+import java.util.Random;
+
+class QuickSort {
+    private int comparisonTracker; // Tracks total number of comparisons made
+
+    public QuickSort() {
+        this.comparisonTracker = 0;
+    }
+
+    // Returns the number of comparisons made
+    public int getComparisons() {
+        return comparisonTracker;
+    }
+
+    // This function generates random numbers between low (inclusive) and high (inclusive)
+    private void random(int arr[], int low, int high) {
+        Random rand = new Random();
+        int pivot = rand.nextInt(high - low + 1) + low;
+
+        int temp1 = arr[pivot];
+        arr[pivot] = arr[high];
+        arr[high] = temp1;
+    }
+
+    /*
+     * This function takes the last element as the pivot, places the pivot element at its correct
+     * position in the sorted array, and places all smaller (smaller than pivot) to the left
+     * and all greater elements to the right of the pivot
+     */
+    private int partition(int arr[], int low, int high) {
+        // Randomly select a pivot
+        random(arr, low, high);
+        int pivot = arr[high];
+
+        int i = (low - 1); // Index of the smaller element
+        for (int j = low; j < high; j++) {
+            // If the current element is smaller than the pivot
+            if (arr[j] < pivot) {
+                i++;
+                // Swap arr[i] and arr[j]
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+            comparisonTracker++; // Comparison made between arr[j] and pivot
+        }
+
+        // Swap arr[i+1] and arr[high] (or pivot)
+        int temp = arr[i + 1];
+        arr[i + 1] = arr[high];
+        arr[high] = temp;
+
+        return i + 1;
+    }
+
+    /*
+     * The main function that implements QuickSort()
+     * arr[] --> Array to be sorted,
+     * low  --> Starting index,
+     * high --> Ending index
+     */
+    public void sort(int arr[], int low, int high) {
+        if (low < high) {
+            // pi is partitioning index, arr[pi] is now at the right place
+            int pi = partition(arr, low, high);
+
+            // Recursively sort elements before and after the partition
+            sort(arr, low, pi - 1);
+            sort(arr, pi + 1, high);
+        }
+    }
+}
