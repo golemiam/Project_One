@@ -22,25 +22,28 @@ class QuickSort {
 	 * 
 	 * @return Number of comparisons made.
 	 */
-	private static int getComparisons() {
+	public int getComparisons() {
 		return comparisonTracker;
 	}
 
-	/**
-	 * Swaps two elements in an array.
-	 * 
-	 * @param array
-	 * @param position1 first element
-	 * @param position2 second element
+	/*
+	 * The main function that implements QuickSort arr[] --> Array to be sorted, low
+	 * --> Starting index, high --> Ending index
 	 */
-	static void swap(int[] array, int position1, int position2) {
-		int temp = array[position1]; // Copy the first element
+	public void sort(int[] arr, int low, int high) {
+		if (low < high) {
+			/*
+			 * pi is partitioning index, arr[p] is now at right place
+			 */
+			int pi = partition(arr, low, high);
 
-		array[position1] = array[position2]; // Assign position1 with the second element
-
-		array[position2] = temp; // Assign position2 with the first element
+			// Separately sort elements before
+			// partition and after partition
+			sort(arr, low, pi - 1);
+			sort(arr, pi + 1, high);
+		}
 	}
-
+ 
 	/**
 	 * Partitions the array based on the pivot element. Elements smaller than or
 	 * equal to the pivot are moved to the left, and elements greater than the pivot
@@ -76,22 +79,19 @@ class QuickSort {
 		// Return the partition index
 		return i + 1;
 	}
-
-	/*
-	 * The main function that implements QuickSort arr[] --> Array to be sorted, low
-	 * --> Starting index, high --> Ending index
+	
+	/**
+	 * Swaps two elements in an array.
+	 * 
+	 * @param array
+	 * @param position1 first element
+	 * @param position2 second element
 	 */
-	static void quickSort(int[] arr, int low, int high) {
-		if (low < high) {
-			/*
-			 * pi is partitioning index, arr[p] is now at right place
-			 */
-			int pi = partition(arr, low, high);
+	static void swap(int[] array, int position1, int position2) {
+		int temp = array[position1]; // Copy the first element
 
-			// Separately sort elements before
-			// partition and after partition
-			quickSort(arr, low, pi - 1);
-			quickSort(arr, pi + 1, high);
-		}
+		array[position1] = array[position2]; // Assign position1 with the second element
+
+		array[position2] = temp; // Assign position2 with the first element
 	}
 }
